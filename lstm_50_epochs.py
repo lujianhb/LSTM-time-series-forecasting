@@ -6,6 +6,7 @@
 
 from datetime import datetime, timedelta
 from data import get_data
+
 # import yfinance as yf
 # yf.pdr_override()
 
@@ -32,8 +33,7 @@ import seaborn as sns
 
 sns.set_style('darkgrid')
 plt.figure(figsize=(8, 5), dpi=120)
-# sns.lineplot(data=df.index,label='BTC-USD')
-
+sns.lineplot(df, x=df.index, y=df.Open, label='BTC-USD')
 
 # In[ ]:
 
@@ -172,9 +172,9 @@ train_window = [i for i in range(split_time - window_size)]
 forecast = model_forecast(model, x_train, window_size)
 
 plt.figure(figsize=(8, 5), dpi=120)
-sns.lineplot(train_window, forecast[:-1, 1, 0], label='Forecast')
-sns.lineplot(train_window, X[:split_time - window_size, 1], label='BTC-USD')
-plt.show()
+sns.lineplot(x=train_window, y=forecast[:-1, 1, 0], label='Forecast')
+sns.lineplot(x=train_window, y=X[:split_time - window_size, 1], label='BTC-USD')
+# plt.show()
 
 # In[ ]:
 
@@ -188,8 +188,8 @@ val_window = [i for i in range(split_time, len(df) - window_size)]
 forecast = model_forecast(model, x_test, window_size)
 
 plt.figure(figsize=(8, 5), dpi=120)
-sns.lineplot(val_window, forecast[:-1, 1, 0], label='Forecast')
-sns.lineplot(val_window, X[split_time:-window_size, 1], label='BTC-USD')
+sns.lineplot(x=val_window, y=forecast[:-1, 1, 0], label='Forecast')
+sns.lineplot(x=val_window, y=X[split_time:-window_size, 1], label='BTC-USD')
 plt.show()
 
 # In[ ]:
